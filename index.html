@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>
+            
+        </title>
+        <style>
+            *{
+                font-size: 50px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }
+            body{
+                background-image: url(./2124381.jpg);
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+            h1{
+                background-color: white;color: goldenrod; border-radius: 10px; width: 50%;
+            }
+            #subbtn{
+                background-color: white;color: goldenrod; border-radius: 10px; width: 25%;
+            }
+            .amt{
+                color: red;
+            }
+            .rbtn{
+                color: aqua;
+            }
+            #ans{
+                color: white;
+            }
+        </style>
+        <script>
+        
+        function rates()
+        {
+            event.preventDefault();
+            let USD=document.getElementById("USD");
+            let EUR=document.getElementById("EUR");
+            let GBP=document.getElementById("GBP");
+            let ans=document.getElementById("ans");
+            let url="https://api.coindesk.com/v1/bpi/currentprice.json";
+            fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                if(USD.checked)
+                ans.innerHTML="\u0024"+data.bpi.USD.rate;
+                else if(EUR.checked)
+                ans.innerHTML="\u20AC"+data.bpi.EUR.rate;
+                else
+                ans.innerHTML="\u00A3"+data.bpi.GBP.rate;
+            })
+            .catch(err => ans.innerHTML="issue"+err);
+        }
+    
+        </script>
+    </head>
+    <body>
+        <center>
+            <h1> LIVE BTC RATES APP </h1>
+            <form onsubmit="rates()">
+                <label class="rbtn"><input type="radio" name="d" id="USD"checked=true>USD</label>
+                <label class="rbtn"><input type="radio" name="d" id="EUR">EUR</label>
+                <label class="rbtn"><input type="radio" name="d" id="GBP">GBP</label>
+                <br><br>
+                <input type="submit" id="subbtn" value="GET LIVE RATES">
+            </form>
+            <h2 id="ans"></h2>
+        </center>
+    </body>
+</html>
